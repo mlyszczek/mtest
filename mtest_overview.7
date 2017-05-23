@@ -1,0 +1,72 @@
+.TH "MTEST" "7" "23 May 2017 (v0.1.0)" "bofc.pl"
+
+.SH "NAME"
+\fBmtest_overview\fR - overview of \fBmtest\fR testing framework
+
+.SH "DESCRIPTION"
+\fBmtest\fR - macro test is a very minimalistic fremwork for code testing in C
+but it should also work for C++ too. \fBmtest\fR consists of following macros:
+
+.sp
+.BI "mt_defs();"
+.br
+.BI "mt_defs_ext();"
+.br
+.BI "mt_run(" function_name ");"
+.br
+.BI "mt_assert(" expression ");"
+.br
+.BI "mt_fail(" expression ");"
+.br
+.BI "mt_return();"
+.sp
+
+Test output is compatible with \fBTAP\fR (which stands for Test Anything
+Protocol), so its output can be piped to another tool (like Jenkins or
+automake tests) for nice output.
+
+Each test binary should contain call to \fBmt_defs()\fR anywhere in a global
+scope and \fBmt_return()\fR at the end of tests.
+
+.SH "EXAMPLE"
+
+.nf
+#include <mtest.h>
+#include <stdlib.h>
+#include "file_to_test.h"
+
+mt_defs(); /* defines necessary variables for mtest */
+
+static void test_one(void)
+{
+    mt_assert(foo() == 0);
+    mt_assert(bar() == 0);
+}
+
+static void test_two(void)
+{
+    unsigned char *mem;
+
+    mt_assert((mem = malloc(100)) != NULL);
+    mt_fail(baz(mem) == 0);
+    mt_fail(qux(mem) == 0);
+
+    free(mem);
+}
+
+int main(void)
+{
+    mt_run(test_one);
+    mt_run(test_two);
+
+    mt_return();
+}
+.fi
+
+.SH "SEE ALSO"
+.BR mt_defs (3),
+.BR mt_defs_ext (3),
+.BR mt_run (3),
+.BR mt_assert (3),
+.BR mt_fail (3),
+.BR mt_return (3)

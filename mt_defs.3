@@ -1,0 +1,103 @@
+.TH "MT_DEFS" "3" "23 May 2017 (v0.1.0)" "bofc.pl"
+
+.SH NAME
+mt_defs, mt_defs_ext - defines variables for test framework
+
+.SH SYNOPSIS
+.B #include <mtest.h>
+.sp
+.BI mt_defs();
+.br
+.BI mt_defs_ext();
+.sp
+
+.SH DESCRIPTION
+\fBmt_defs()\fR defines all variables needed by the test framework. This must
+be called exactly once in a global scope, before calling any of the
+\fBmtest\fR function. Calling this macro in two places will lead to 'double
+definition' linker error. As a rule of thumb, it is good to call this macro in
+test-main.c file after #includes.
+
+If all tests are in a single file (like test-main.c) calling \fBmt_defs()\fR
+is sufficient, but if tests are splitted into more .c files, you should also
+call \fBmt_defs_ext()\fR in all .c files that uses \fBmtest\fR functions. As
+with \fBmt_defs()\fR, it should be called before any call to \fBmtest\fR
+function.
+
+Note, don't call \fBmt_defs_ext()\fR if \fBmt_defs()\fR has already been called
+in a single file.
+
+.SH EXAMPLE
+.nf
+.TP
+/* test-main.c */
+
+#include <mtest.h>
+
+#include "t1.h"
+#include "t2.h"
+#include "library-under-test.h"
+
+mt_defs();
+
+static void test_zero(void)
+{
+    mt_assert(foo() == 0);
+}
+
+int main(void)
+{
+    mt_run(test_zero);
+    mt_run(test_one);
+    test_group();
+
+    mt_return();
+}
+
+.TP
+/* t1.c */
+
+#include <mtest.h>
+
+#include "t1.h"
+#include "library-under-test.h"
+
+mt_defs_ext();
+
+void test_one(void)
+{
+    mt_assert(bar() == 0);
+}
+
+.TP
+/* t2.c */
+
+#include <mtest.h>
+
+#include "t2.h"
+#include "library-under-test.h"
+
+mt_defs_ext();
+
+static void test_two(void)
+{
+    mt_assert(baz() == 0);
+}
+
+static void test_three(void)
+{
+    mt_assert(qux() == 0);
+}
+
+void test_group(void)
+{
+    mt_run(test_two);
+    mt_run(test_three);
+}
+.fi
+
+.SH "SEE ALSO"
+.BR mt_run (3),
+.BR mt_assert (3),
+.BR mt_fail (3),
+.BR mt_return (3)

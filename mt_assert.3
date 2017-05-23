@@ -1,0 +1,34 @@
+.TH "MT_ASSERT" "3" "23 May 2017 (v0.1.0)" "bofc.pl"
+
+.SH NAME
+mt_assert, mt_fail - test checks macros
+
+.SH SYNOPSIS
+.B #include <mtest.h>
+.sp
+.BI "mt_assert(" expression ");"
+.br
+.BI "mt_fail(" expression ");"
+.sp
+
+.SH DESCRIPTION
+Macro \fBmt_assert()\fR evaluates \fIexpression\fR and if it evaluates to false,
+test will be marked as failed and information about assert will be printed.
+Information contains \fIfunction_name\fR, line where assert occured, and
+\fIexpression\fR that caused test to fail. Also macro forces function it was
+called in to immediately return.
+
+\fBmt_fail()\fR works just as \fBmt_assert()\fR but function is not forced to
+exit and can continue execution. This is good when test allocates some memory
+and we need to clean up before returning.
+
+.SH EXAMPLE
+
+Proper example can be found in \fBmtest_overview(7)\fR.
+
+.SH "SEE ALSO"
+.BR mt_defs (3),
+.BR mt_defs_ext (3),
+.BR mt_run (3),
+.BR mt_return (3),
+.BR mtest_overview (7)
