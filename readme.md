@@ -14,8 +14,8 @@ Valid C89 compiler with *fprintf* function implemented.
 Instalation
 ===========
 
-Just copy **mtest.h** into your project tree, and include it. It's that easy. You
-can also call *make install* so **mtest** is copied into local machine. Just
+Just copy **mtest.h** into your project tree, and include it. It's that easy.
+You can also call *make install* so **mtest** is copied into local machine. Just
 mind that **mtest** will become your build dependency, and it's so small, it is
 usually not necessary. The good thing of calling **make install** is that, man
 pages will be installed in your system, so you can have quick overview of the
@@ -32,8 +32,9 @@ it's a proof that unit testing can be very easy to implement.
 Examples
 ========
 
-memperf (https://github.com/mlyszczek/memperf) makes use of this framework for
-its tests. Tests results are integrated with automake **make check** call.
+Example test is in *example* directory, also memperf
+(https://github.com/mlyszczek/memperf) makes use of this framework for its
+tests. Tests results are integrated with automake **make check** call.
 
 License
 =======
