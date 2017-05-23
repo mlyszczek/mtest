@@ -35,6 +35,20 @@
 
 
 /* ==========================================================================
+    macro with extern declarations of variables defined by mt_defs().   This
+    macro should be called in any .c file,  that uses mt_* function and does
+    not have mt_defs() called in.
+   ========================================================================== */
+
+
+#define mt_defs_ext()                                                          \
+    extern const char *curr_test;                                              \
+    extern int mt_test_status;                                                 \
+    extern int mt_total_tests;                                                 \
+    extern int mt_total_failed;
+
+
+/* ==========================================================================
     macro runs test 'f'. 'f' is just a function (without parenthesis ()).
    ========================================================================== */
 
