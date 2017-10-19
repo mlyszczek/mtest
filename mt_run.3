@@ -1,4 +1,4 @@
-.TH "MT_RUN" "3" "23 May 2017 (v0.1.0)" "bofc.pl"
+.TH "MT_RUN" "3" "19 Oct 2017 (v0.2.0)" "bofc.pl"
 
 .SH NAME
 mt_run - runs specific test
@@ -6,16 +6,16 @@ mt_run - runs specific test
 .SH SYNOPSIS
 .B #include <mtest.h>
 .sp
-.BI "void (*" function_name ")(void);
+.BI "void (*" function_name ")(void)
 .br
-.BI "mt_run(" function_name ");"
+.BI "mt_run(" function_name ")"
 .sp
 
 .SH DESCRIPTION
-\fBmt_run()\fR runs a single test specified in \fIfunction_name\fR. Inside
-function you can call \fBmt_assert()\fR and \fBmt_fail()\fR. If none if these
+\fBmt_run\fR() runs a single test specified in \fIfunction_name\fR. Inside
+function you can call \fBmt_assert\fR() and \fBmt_fail\fR(). If none if these
 functions is called inside test function, \fBmtest\fR will mark test as
-successful. After function finishes its work, \fBmt_run()\fR will print test
+successful. After function finishes its work, \fBmt_run\fR() will print test
 status and a \fIfunction_name\fR to know which test passed or failed.
 
 .SH EXAMPLE
@@ -45,4 +45,6 @@ int main(void)
 .BR mt_defs_ext (3),
 .BR mt_assert (3),
 .BR mt_fail (3),
+.BR mt_fok (3),
+.BR mt_ferr (3),
 .BR mt_return (3)

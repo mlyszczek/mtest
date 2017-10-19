@@ -1,4 +1,4 @@
-.TH "MTEST" "7" "23 May 2017 (v0.1.0)" "bofc.pl"
+.TH "MTEST" "7" "19 Oct 2017 (v0.2.0)" "bofc.pl"
 
 .SH "NAME"
 \fBmtest_overview\fR - overview of \fBmtest\fR testing framework
@@ -8,17 +8,21 @@
 but it should also work for C++ too. \fBmtest\fR consists of following macros:
 
 .sp
-.BI "mt_defs();"
+.BI "mt_defs()"
 .br
-.BI "mt_defs_ext();"
+.BI "mt_defs_ext()"
 .br
-.BI "mt_run(" function_name ");"
+.BI "mt_run(" function_name ")"
 .br
-.BI "mt_assert(" expression ");"
+.BI "mt_assert(" expression ")"
 .br
-.BI "mt_fail(" expression ");"
+.BI "mt_fail(" expression ")"
 .br
-.BI "mt_return();"
+.BI "mt_fok(" function_call ")"
+.br
+.BI "mt_ferr(" function_call ", " errno_value ")"
+.br
+.BI "mt_return()"
 .sp
 
 Test output is compatible with \fBTAP\fR (which stands for Test Anything
@@ -48,8 +52,8 @@ static void test_two(void)
     unsigned char *mem;
 
     mt_assert((mem = malloc(100)) != NULL);
-    mt_fail(baz(mem) == 0);
-    mt_fail(qux(mem) == 0);
+    mt_fok(baz(mem));
+    mt_ferr(qux(mem), ENOSYS);
 
     free(mem);
 }
@@ -69,4 +73,6 @@ int main(void)
 .BR mt_run (3),
 .BR mt_assert (3),
 .BR mt_fail (3),
+.BR mt_fok (3),
+.BR mt_ferr (3),
 .BR mt_return (3)

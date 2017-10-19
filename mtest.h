@@ -4,7 +4,7 @@
    ========================================================================== */
 
 
-/* ==== mtest version v0.1.0 ================================================ */
+/* ==== mtest version v0.2.0 ================================================ */
 
 
 /* ==========================================================================
@@ -77,7 +77,8 @@
 #define mt_assert(e) do {                                                      \
     if (!(e))                                                                  \
     {                                                                          \
-        fprintf(stdout, "# assert %d: %s, %s\n", __LINE__, curr_test, #e);     \
+        fprintf(stdout, "# assert [%s:%d] %s, %s\n",                           \
+                __FILE__, __LINE__, curr_test, #e);                            \
         mt_test_status = -1;                                                   \
         return;                                                                \
     } } while (0)
@@ -92,10 +93,32 @@
 #define mt_fail(e) do {                                                        \
     if (!(e))                                                                  \
     {                                                                          \
-        fprintf(stdout, "# assert %d: %s, %s\n", __LINE__, curr_test, #e);     \
+        fprintf(stdout, "# assert [%s:%d] %s, %s\n",                           \
+                __FILE__, __LINE__, curr_test, #e);                            \
         mt_test_status = -1;                                                   \
-    } } while(0)
+    } } while (0)
 
+
+/* ==========================================================================
+    shortcut macro to test if function exits with success (with return value
+    set to 0)
+   ========================================================================== */
+
+
+#define mt_fok(e) mt_fail(e == 0)
+
+
+/* ==========================================================================
+    shortcut macro to test if function fails as expected, with return code
+    set to -1, and expected errno errn
+   ========================================================================== */
+
+
+#define mt_ferr(e, errn) do {                                                  \
+    errno = 0;                                                                 \
+    mt_fail(e == -1);                                                          \
+    mt_fail(errno == errn);                                                    \
+    } while (0)
 
 /* ==========================================================================
     prints test plan, in format 1..<number_of_test_run>.  If all tests  have

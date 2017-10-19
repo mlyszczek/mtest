@@ -1,4 +1,4 @@
-.TH "MT_RETURN" "3" "23 May 2017 (v0.1.0)" "bofc.pl"
+.TH "MT_RETURN" "3" "19 Oct 2017 (v0.2.0)" "bofc.pl"
 
 .SH NAME
 mt_return - finishes test execution
@@ -6,16 +6,16 @@ mt_return - finishes test execution
 .SH SYNOPSIS
 .B #include <mtest.h>
 .sp
-.BI mt_return();
+.BI mt_return()
 .sp
 
 .SH DESCRIPTION
-\fBmt_return\fR should be called once at the very end of \fBmain\fR function. In
-other words, this macro should be called in \fBmain\fR instead of normal return.
-Function will print number of tests executed and will exit test program.
-Returned value is number of tests that have failed, so if return code of
-application is 0, that means all tests have finished with success. If there is
-more than 254 tests failed, macro will return 254.
+\fBmt_return\fR() should be called once at the very end of \fBmain\fR()
+function. In other words, this macro should be called in \fBmain\fR() instead of
+normal return.  Function will print number of tests executed and will exit test
+program.  Returned value is number of tests that have failed, so if return code
+of application is 0, that means all tests have finished with success. If there
+is more than 254 tests failed, macro will return 254.
 
 .SH EXAMPLE
 
@@ -27,4 +27,6 @@ Proper example can be found in \fBmtest_overview\fR(7).
 .BR mt_run (3),
 .BR mt_assert (3),
 .BR mt_fail (3),
+.BR mt_fok (3),
+.BR mt_ferr (3),
 .BR mtest_overview (7)
