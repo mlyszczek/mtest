@@ -9,6 +9,11 @@ mt_run - runs specific test
 .BI "void (*" function_name ")(void)
 .br
 .BI "mt_run(" function_name ")"
+.br
+.br
+.BI "static void (*" mt_prepare_test ")(void)"
+.br
+.BI "static void (*" mt_cleanup_test ")(void)"
 .sp
 
 .SH DESCRIPTION
@@ -17,6 +22,10 @@ function you can call \fBmt_assert\fR() and \fBmt_fail\fR(). If none if these
 functions is called inside test function, \fBmtest\fR will mark test as
 successful. After function finishes its work, \fBmt_run\fR() will print test
 status and a \fIfunction_name\fR to know which test passed or failed.
+
+Optionally user can also set two function pointers \fImt_prepare_test\fR and
+\fImt_cleanup_test\fR that take no argument and return nothing. These functions
+will be called before and after calling test \fIfunction_name\fR.
 
 .SH EXAMPLE
 .nf

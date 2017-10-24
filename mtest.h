@@ -4,7 +4,7 @@
    ========================================================================== */
 
 
-/* ==== mtest version v0.2.0 ================================================ */
+/* ==== mtest version v0.1.0 ================================================ */
 
 
 /* ==========================================================================
@@ -31,7 +31,9 @@
     const char *curr_test;                                                     \
     int mt_test_status;                                                        \
     int mt_total_tests = 0;                                                    \
-    int mt_total_failed = 0
+    int mt_total_failed = 0;                                                   \
+    static void (*mt_prepare_test)(void);                                      \
+    static void (*mt_cleanup_test)(void)
 
 
 /* ==========================================================================
@@ -45,7 +47,9 @@
     extern const char *curr_test;                                              \
     extern int mt_test_status;                                                 \
     extern int mt_total_tests;                                                 \
-    extern int mt_total_failed;
+    extern int mt_total_failed;                                                \
+    static void (*mt_prepare_test)(void);                                      \
+    static void (*mt_cleanup_test)(void)
 
 
 /* ==========================================================================
@@ -57,7 +61,9 @@
     curr_test = #f;                                                            \
     mt_test_status = 0;                                                        \
     ++mt_total_tests;                                                          \
+    if (mt_prepare_test) mt_prepare_test();                                    \
     f();                                                                       \
+    if (mt_cleanup_test) mt_cleanup_test();                                    \
     if (mt_test_status != 0)                                                   \
     {                                                                          \
         fprintf(stdout, "not ok %d - %s\n", mt_total_tests, curr_test);        \
@@ -119,7 +125,6 @@
     mt_fail(e == -1);                                                          \
     mt_fail(errno == errn);                                                    \
     } while (0)
-
 
 /* ==========================================================================
     prints test plan, in format 1..<number_of_test_run>.  If all tests  have
