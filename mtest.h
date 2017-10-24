@@ -120,6 +120,7 @@
     mt_fail(errno == errn);                                                    \
     } while (0)
 
+
 /* ==========================================================================
     prints test plan, in format 1..<number_of_test_run>.  If all tests  have
     passed, macro will return current function with code 0, else it  returns
