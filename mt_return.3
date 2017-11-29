@@ -1,13 +1,20 @@
-.TH "MT_RETURN" "3" "19 Oct 2017 (v0.2.0)" "bofc.pl"
+.TH "MT_RETURN" "3" "29 Nov 2017 (v1.0.0)" "bofc.pl"
 
 .SH NAME
 mt_return - finishes test execution
 
 .SH SYNOPSIS
+
+c/c++
+
 .B #include <mtest.h>
 .sp
 .BI mt_return()
 .sp
+
+shell
+
+.BI mt_return
 
 .SH DESCRIPTION
 \fBmt_return\fR() should be called once at the very end of \fBmain\fR()
@@ -16,6 +23,8 @@ normal return.  Function will print number of tests executed and will exit test
 program.  Returned value is number of tests that have failed, so if return code
 of application is 0, that means all tests have finished with success. If there
 is more than 254 tests failed, macro will return 254.
+
+In shell call this function at the very end of shell script.
 
 .SH EXAMPLE
 

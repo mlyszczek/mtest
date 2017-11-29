@@ -1,7 +1,9 @@
-.TH "MT_RUN" "3" "19 Oct 2017 (v0.2.0)" "bofc.pl"
+.TH "MT_RUN" "3" "29 Nov 2017 (v1.0.0)" "bofc.pl"
 
 .SH NAME
 mt_run - runs specific test
+
+c/c++
 
 .SH SYNOPSIS
 .B #include <mtest.h>
@@ -16,6 +18,10 @@ mt_run - runs specific test
 .BI "static void (*" mt_cleanup_test ")(void)"
 .sp
 
+shell
+
+.BI "mt_run <" function_name ">"
+
 .SH DESCRIPTION
 \fBmt_run\fR() runs a single test specified in \fIfunction_name\fR. Inside
 function you can call \fBmt_assert\fR() and \fBmt_fail\fR(). If none if these
@@ -27,7 +33,14 @@ Optionally user can also set two function pointers \fImt_prepare_test\fR and
 \fImt_cleanup_test\fR that take no argument and return nothing. These functions
 will be called before and after calling test \fIfunction_name\fR.
 
+When testing from shell, it is only neccessary to define functions
+\fImt_prepare_test\fR and \fImt_cleanup_test\fR and \fBmtest\fR will use
+then automatically
+
 .SH EXAMPLE
+
+c/c++
+
 .nf
 
 #include <mtest.h>
@@ -46,6 +59,26 @@ int main(void)
 
     mt_return();
 }
+
+.fi
+
+shell
+
+.nf
+
+#!/bin/sh
+
+. ./mtest.sh
+
+test_one()
+{
+    a=1
+    a=$((a + 1))
+    mt_fail "[ $a -eq 2 ]"
+}
+
+mt_run test_one
+mt_return
 
 .fi
 

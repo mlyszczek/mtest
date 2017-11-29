@@ -1,15 +1,22 @@
-.TH "MT_ASSERT" "3" "19 Oct 2017 (v0.2.0)" "bofc.pl"
+.TH "MT_ASSERT" "3" "29 Nov 2017 (v1.0.0)" "bofc.pl"
 
 .SH NAME
 mt_assert, mt_fail - test checks macros
 
 .SH SYNOPSIS
+
+c/c++
+
 .B #include <mtest.h>
 .sp
 .BI "mt_assert(" expression ")"
 .br
 .BI "mt_fail(" expression ")"
 .sp
+
+shell
+
+.BI "mt_fail <" expression ">"
 
 .SH DESCRIPTION
 Macro \fBmt_assert\fR() evaluates \fIexpression\fR and if it evaluates to false,

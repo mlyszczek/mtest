@@ -1,11 +1,13 @@
-.TH "MTEST" "7" "19 Oct 2017 (v0.2.0)" "bofc.pl"
+.TH "MTEST" "7" "29 Nov 2017 (v1.0.0)" "bofc.pl"
 
 .SH "NAME"
 \fBmtest_overview\fR - overview of \fBmtest\fR testing framework
 
 .SH "DESCRIPTION"
-\fBmtest\fR - macro test is a very minimalistic fremwork for code testing in C
-but it should also work for C++ too. \fBmtest\fR consists of following macros:
+\fBmtest\fR - very simple test framework for testing anything. mtest currently
+supports following languages:
+
+For c/c++
 
 .sp
 .BI "mt_defs()"
@@ -25,12 +27,24 @@ but it should also work for C++ too. \fBmtest\fR consists of following macros:
 .BI "mt_return()"
 .sp
 
+For shell
+
+.sp
+.BI "mt_run <" function_name ">"
+.br
+.BI "mt_fail <" expression ">"
+.br
+.BR "mt_return"
+.sp
+
 Test output is compatible with \fBTAP\fR (which stands for Test Anything
 Protocol), so its output can be piped to another tool (like Jenkins or
 automake tests) for nice output.
 
-Each test binary should contain call to \fBmt_defs()\fR anywhere in a global
-scope and \fBmt_return()\fR at the end of tests.
+Each test binary (written in c/c++) should contain call to \fBmt_defs()\fR
+anywhere in a global scope and \fBmt_return()\fR at the end of tests.
+
+Tests in shell only requires \fBmt_return\fR at the end of tests
 
 .SH "EXAMPLE"
 
@@ -65,6 +79,24 @@ int main(void)
 
     mt_return();
 }
+.fi
+
+Example of using mt in posix shell
+
+.nf
+#!/bin/sh
+
+. ./mtest.sh
+
+test_one()
+{
+    a=1
+    a=$((a + 1))
+    mt_fail "[ $a -eq 2 ]"
+}
+
+mt_run test_one
+mt_return
 .fi
 
 .SH "SEE ALSO"
