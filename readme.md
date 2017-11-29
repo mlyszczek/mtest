@@ -10,6 +10,7 @@ Dependencies
 ============
 
 Valid C89 compiler with *fprintf* function implemented.
+Posix shell for testing from shell.
 
 Instalation
 ===========
