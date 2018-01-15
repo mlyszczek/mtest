@@ -3,7 +3,7 @@
     Author: Michał Łyszczek <michal.lyszczek@bofc.pl>
    ==========================================================================
      __________________________________________________________
-    /                   mtest version v1.0.0                   \
+    /                   mtest version v1.1.0                   \
     |                                                          |
     |    Simple test framework that uses TAP output format     |
     \                 http://testanything.org                  /
@@ -85,7 +85,18 @@
 
 
 #define mt_run(f) do {                                                         \
-    curr_test = #f;                                                            \
+    mt_run_named(f, #f);                                                       \
+    } while (0)
+
+
+/* ==========================================================================
+    macro runs test 'f' and instead of printing function name as a test name
+    it allows to provide custom name 'n'
+   ========================================================================== */
+
+
+#define mt_run_named(f, n) do {                                                \
+    curr_test = n;                                                             \
     mt_test_status = 0;                                                        \
     ++mt_total_tests;                                                          \
     if (mt_prepare_test) mt_prepare_test();                                    \

@@ -2,6 +2,7 @@
 
 #include "add-tests.h"
 #include "sub-tests.h"
+#include "named-tests.h"
 
 #include "calc.h"
 
@@ -38,6 +39,12 @@ int main(void)
      */
 
     mt_run(sub_test);
+
+    /*
+     * run named tests
+     */
+
+    named_test_in_loop();
 
     /*
      * and at the end we call mt_return, which will print clousure information

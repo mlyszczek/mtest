@@ -1,4 +1,4 @@
-.TH "MT_RUN" "3" "29 Nov 2017 (v1.0.0)" "bofc.pl"
+.TH "MT_RUN" "3" "15 January 2018 (v1.1.0)" "bofc.pl"
 
 .SH NAME
 mt_run - runs specific test
@@ -11,6 +11,8 @@ c/c++
 .BI "void (*" function_name ")(void)
 .br
 .BI "mt_run(" function_name ")"
+.br
+.BI "mt_run_named(" function_name ", " test_name ")"
 .br
 .br
 .BI "static void (*" mt_prepare_test ")(void)"
@@ -28,6 +30,10 @@ function you can call \fBmt_assert\fR() and \fBmt_fail\fR(). If none if these
 functions is called inside test function, \fBmtest\fR will mark test as
 successful. After function finishes its work, \fBmt_run\fR() will print test
 status and a \fIfunction_name\fR to know which test passed or failed.
+
+\fBmt_run_named\fR() works similar, but also takes \fItest_name\fR, that will
+be printed instead of \fIfunction_name\fR when reporting test results.
+\fItest_name\fR should be simple \fBconst char *\fR.
 
 Optionally user can also set two function pointers \fImt_prepare_test\fR and
 \fImt_cleanup_test\fR that take no argument and return nothing. These functions
@@ -56,6 +62,8 @@ static void test(void)
 int main(void)
 {
     mt_run(test);
+    mt_run_named(test, "test param 1");
+    mt_run_named(test, "test_param 2");
 
     mt_return();
 }

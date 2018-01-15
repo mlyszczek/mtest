@@ -12,3 +12,4 @@ install:
 	install -m 0644 -D -t $(DESTDIR)/share/man/man3 mt_assert.3
 	install -m 0644 -D -t $(DESTDIR)/share/man/man3 mt_return.3
 	install -m 0644 -D -t $(DESTDIR)/share/man/man3 mt_run.3
+	install -m 0644 -D -t $(DESTDIR)/share/man/man3 mt_run_named.3
