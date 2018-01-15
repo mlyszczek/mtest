@@ -70,7 +70,21 @@ mt_current_test="none"
 
 mt_run()
 {
-    mt_current_test="$1"
+    mt_run_named $1 $1
+}
+
+
+## ==========================================================================
+#   run specified test with custom name to be printed during report
+#
+#   $1 - function name as a string - will be passed to eval
+#   $2 - test name, will be used instead of $1 in report
+## ==========================================================================
+
+
+mt_run_named()
+{
+    mt_current_test="$2"
     mt_test_status=0
     mt_total_tests=$((mt_total_tests + 1))
 
