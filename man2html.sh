@@ -24,7 +24,7 @@ do
         # construct own h1 tag
         name="$(basename ${m})"
         name="${name%.*}"
-        sed -i "1s/^/<H1>${name}(${n})<\/H1>\n /" "${ftmp}"
+        sed -i "1s/^/<H1>${name}(${n})<\/H1>\n<P> /" "${ftmp}"
 
         # remove uneeded links to non-existing index
         sed -i 's/<A HREF="\.\.\/index.html">Return to Main Contents<\/A><HR>//' "${ftmp}"
