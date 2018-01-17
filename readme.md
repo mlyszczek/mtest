@@ -1,3 +1,6 @@
+[kursg-meta]: # (title: about)
+[kursg-meta]: # (order: 1)
+
 About
 =====
 
@@ -22,6 +25,14 @@ usually not necessary. The good thing of calling **make install** is that, man
 pages will be installed in your system, so you can have quick overview of the
 library if you forget anything.
 
+Documentation
+=============
+
+Full documentation (and some more info) is available at
+[mtest.kurwinet.pl](http://mtest.kurwinet.pl/manuals/man3.html)
+
+There are also man pages in **man** directory.
+
 Why
 ===
 
@@ -33,9 +44,15 @@ it's a proof that unit testing can be very easy to implement.
 Examples
 ========
 
-Example test is in *example* directory, also memperf
-(https://github.com/mlyszczek/memperf) makes use of this framework for its
-tests. Tests results are integrated with automake **make check** call.
+Example test is in [example](http://git.kurwinet.pl/mtest/tree/example)
+directory. Also following projects use **mtest** for testing:
+
+* [memperf](http://git.kurwinet.pl/memperf)
+* [embedlog](http://git.kurwinet.pl/embedlog)
+* [kurload](http://git.kurwinet.pl/kurload)
+* [librb](http://git.kurwinet.pl/librb)
+
+Tests results are integrated with automake **make check** call.
 
 License
 =======
@@ -46,3 +63,10 @@ Authors
 =======
 
 Michał Łyszczek <michal.lyszczek@bofc.pl>
+
+See also
+========
+
+* [project webpage](http://mtest.kurwinet.pl)
+* [git repository](http://git.kurwinet.pl/mtest)
+* [test anything protocol (tap)](http://testanything.org)
