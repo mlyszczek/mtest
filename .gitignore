@@ -1,2 +1,4 @@
 *.o
 example
+www/manuals
+www/out
