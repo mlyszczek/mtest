@@ -1,6 +1,7 @@
-.TH "MT_ASSERT" "3" "15 January 2018 (v1.1.0)" "bofc.pl"
+.TH "MT_ASSERT" "3" "17 January 2018 (v1.1.0)" "bofc.pl"
 
 .SH NAME
+
 mt_assert, mt_fail - test checks macros
 
 .SH SYNOPSIS
@@ -19,13 +20,14 @@ shell
 .BI "mt_fail <" expression ">"
 
 .SH DESCRIPTION
-Macro \fBmt_assert\fR() evaluates \fIexpression\fR and if it evaluates to false,
+
+Macro \fBmt_assert\fR(3) evaluates \fIexpression\fR and if it evaluates to false,
 test will be marked as failed and information about assert will be printed.
 Information contains \fIfunction_name\fR, line where assert occured, and
 \fIexpression\fR that caused test to fail. Also macro forces function it was
 called in to immediately return.
 
-\fBmt_fail\fR() works just as \fBmt_assert\fR() but function is not forced to
+\fBmt_fail\fR(3) works just as \fBmt_assert\fR(3) but function is not forced to
 exit and can continue execution. This is good when test allocates some memory
 and we need to clean up before returning.
 
@@ -34,9 +36,11 @@ and we need to clean up before returning.
 Proper example can be found in \fBmtest_overview\fR(7).
 
 .SH "SEE ALSO"
+
 .BR mt_defs (3),
 .BR mt_defs_ext (3),
 .BR mt_run (3),
+.BR mt_run_named (3),
 .BR mt_fok (3),
 .BR mt_ferr (3),
 .BR mt_return (3),

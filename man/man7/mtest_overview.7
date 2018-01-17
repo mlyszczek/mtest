@@ -1,9 +1,11 @@
-.TH "MTEST" "7" "15 January 2018 (v1.1.0)" "bofc.pl"
+.TH "MTEST" "7" "17 January 2018 (v1.1.0)" "bofc.pl"
 
 .SH "NAME"
+
 \fBmtest_overview\fR - overview of \fBmtest\fR testing framework
 
 .SH "DESCRIPTION"
+
 \fBmtest\fR - very simple test framework for testing anything. mtest currently
 supports following languages:
 
@@ -43,10 +45,10 @@ Test output is compatible with \fBTAP\fR (which stands for Test Anything
 Protocol), so its output can be piped to another tool (like Jenkins or
 automake tests) for nice output.
 
-Each test binary (written in c/c++) should contain call to \fBmt_defs()\fR
-anywhere in a global scope and \fBmt_return()\fR at the end of tests.
+Each test binary (written in c/c++) should contain call to \fBmt_defs\fR(3)
+anywhere in a global scope and \fBmt_return\fR(3) at the end of tests.
 
-Tests in shell only requires \fBmt_return\fR at the end of tests
+Tests in shell only requires \fBmt_return\fR(3) at the end of tests
 
 .SH "EXAMPLE"
 
@@ -88,7 +90,7 @@ Example of using mt in posix shell
 .nf
 #!/bin/sh
 
-. ./mtest.sh
+\&. ./mtest.sh
 
 test_one()
 {
@@ -102,6 +104,7 @@ mt_return
 .fi
 
 .SH "SEE ALSO"
+
 .BR mt_defs (3),
 .BR mt_defs_ext (3),
 .BR mt_run (3),

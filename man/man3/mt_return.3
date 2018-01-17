@@ -1,6 +1,7 @@
-.TH "MT_RETURN" "3" "15 January 2018 (v1.1.0)" "bofc.pl"
+.TH "MT_RETURN" "3" "17 January 2018 (v1.1.0)" "bofc.pl"
 
 .SH NAME
+
 mt_return - finishes test execution
 
 .SH SYNOPSIS
@@ -17,7 +18,8 @@ shell
 .BI mt_return
 
 .SH DESCRIPTION
-\fBmt_return\fR() should be called once at the very end of \fBmain\fR()
+
+\fBmt_return\fR(3) should be called once at the very end of \fBmain\fR()
 function. In other words, this macro should be called in \fBmain\fR() instead of
 normal return.  Function will print number of tests executed and will exit test
 program.  Returned value is number of tests that have failed, so if return code
@@ -31,8 +33,10 @@ In shell call this function at the very end of shell script.
 Proper example can be found in \fBmtest_overview\fR(7).
 
 .SH "SEE ALSO"
+
 .BR mt_defs (3),
 .BR mt_defs_ext (3),
+.BR mt_run (3),
 .BR mt_run (3),
 .BR mt_assert (3),
 .BR mt_fail (3),

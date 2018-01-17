@@ -1,11 +1,13 @@
-.TH "MT_RUN" "3" "15 January 2018 (v1.1.0)" "bofc.pl"
+.TH "MT_RUN" "3" "17 January 2018 (v1.1.0)" "bofc.pl"
 
 .SH NAME
+
 mt_run - runs specific test
 
 c/c++
 
 .SH SYNOPSIS
+
 .B #include <mtest.h>
 .sp
 .BI "void (*" function_name ")(void)
@@ -25,13 +27,14 @@ shell
 .BI "mt_run <" function_name ">"
 
 .SH DESCRIPTION
-\fBmt_run\fR() runs a single test specified in \fIfunction_name\fR. Inside
-function you can call \fBmt_assert\fR() and \fBmt_fail\fR(). If none if these
+
+\fBmt_run\fR(#) runs a single test specified in \fIfunction_name\fR. Inside
+function you can call \fBmt_assert\fR(3) and \fBmt_fail\fR(3). If none if these
 functions is called inside test function, \fBmtest\fR will mark test as
-successful. After function finishes its work, \fBmt_run\fR() will print test
+successful. After function finishes its work, \fBmt_run\fR(3) will print test
 status and a \fIfunction_name\fR to know which test passed or failed.
 
-\fBmt_run_named\fR() works similar, but also takes \fItest_name\fR, that will
+\fBmt_run_named\fR(3) works similar, but also takes \fItest_name\fR, that will
 be printed instead of \fIfunction_name\fR when reporting test results.
 \fItest_name\fR should be simple \fBconst char *\fR.
 
@@ -48,7 +51,6 @@ then automatically
 c/c++
 
 .nf
-
 #include <mtest.h>
 #include "foo.h"
 
@@ -67,13 +69,11 @@ int main(void)
 
     mt_return();
 }
-
 .fi
 
 shell
 
 .nf
-
 #!/bin/sh
 
 . ./mtest.sh
@@ -87,10 +87,10 @@ test_one()
 
 mt_run test_one
 mt_return
-
 .fi
 
 .SH "SEE ALSO"
+
 .BR mt_defs (3),
 .BR mt_defs_ext (3),
 .BR mt_assert (3),
@@ -98,3 +98,4 @@ mt_return
 .BR mt_fok (3),
 .BR mt_ferr (3),
 .BR mt_return (3)
+.BR mtest_overview (7),
