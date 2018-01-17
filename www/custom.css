@@ -10,7 +10,7 @@ pre#logo-footer
     max-width: 100%;
 }
 
-div#footer a:hover
+div#footer a:hover, div#header a:hover
 {
     color: red;
     text-decoration: none;
