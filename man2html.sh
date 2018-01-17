@@ -45,6 +45,9 @@ do
         sed -i '/^<A NAME="index">&nbsp;<\/A><H2>Index<\/H2>$/,$d' "${ftmp}"
         head -n-3 "${ftmp}" > tmp; mv tmp "${ftmp}"
 
+        # change deprecated name in <a> into id
+        sed -i 's/A NAME="/A ID="/g' "${ftmp}"
+
         # move generated file into output directory for further processing
         cp "${ftmp}" "${out}/man${n}/${m}.html"
     done
