@@ -1,0 +1,6 @@
+in_title="mtest.kurwinet.pl - mtest (macro test) for simple C unit testing"
+in_description="mtest - macro test, is a very small unit test framework. Really small, it contains only single header file with macros only. mtest outputs test results in TAP format, so it can be piped to anything (like automake or jenkins) for even nicer output."
+in_keywords="c, unit, test, framework"
+in_author="Michał Łyszczek"
+pygment=vim
+style=man
