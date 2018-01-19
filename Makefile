@@ -14,9 +14,11 @@ install:
 	install -m 0644 -D -t $(DESTDIR)/share/man/man3 man/man3/mt_run.3
 	install -m 0644 -D -t $(DESTDIR)/share/man/man3 man/man3/mt_run_named.3
 
-doc:
+www:
 	./man2html.sh
 	$(MAKE) -C www
 
 clean:
 	$(MAKE) clean -C www
+
+.PHONY: www
