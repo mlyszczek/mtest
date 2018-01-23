@@ -1,5 +1,6 @@
 *.o
 example
 www/manuals
+www/downloads.html
 www/out
 mtest-*.tar.gz
