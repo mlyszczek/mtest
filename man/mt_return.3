@@ -1,0 +1,46 @@
+.TH "MT_RETURN" "3" "17 January 2018 (v1.1.0)" "bofc.pl"
+.SH NAME
+.PP
+.B mt_return
+- finishes test execution
+.SH SYNOPSIS
+.PP
+c/c++
+.PP
+.B #include <mtest.h>
+.PP
+.BI mt_return()
+.PP
+shell
+.PP
+.BI mt_return
+.SH DESCRIPTION
+.PP
+.BR mt_return (3)
+should be called once at the very end of
+.B main()
+function.
+In other words, this macro should be called in
+.B main()
+instead of normal return.
+Function will print number of tests executed and will exit test program.
+Returned value is number of tests that have failed, so if return code
+of application is 0, that means all tests have finished with success.
+If there is more than 254 tests failed, macro will return 254.
+.PP
+In shell call this function at the very end of shell script.
+.SH EXAMPLE
+.PP
+Proper example can be found in
+.BR mtest_overview (7).
+.SH "SEE ALSO"
+.PP
+.BR mt_defs (3),
+.BR mt_defs_ext (3),
+.BR mt_run (3),
+.BR mt_run (3),
+.BR mt_assert (3),
+.BR mt_fail (3),
+.BR mt_fok (3),
+.BR mt_ferr (3),
+.BR mtest_overview (7)

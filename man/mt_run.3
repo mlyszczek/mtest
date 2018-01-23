@@ -1,0 +1,119 @@
+.TH "MT_RUN" "3" "17 January 2018 (v1.1.0)" "bofc.pl"
+.SH NAME
+.PP
+.B mt_run
+- runs specific test
+.SH SYNOPSIS
+.PP
+c/c++
+.PP
+.B #include <mtest.h>
+.PP
+.BI "void (*" function_name ")(void)
+.br
+.BI "mt_run(" function_name ")"
+.br
+.BI "mt_run_named(" function_name ", " test_name ")"
+.PP
+.BI "static void (*" mt_prepare_test ")(void)"
+.br
+.BI "static void (*" mt_cleanup_test ")(void)"
+.PP
+shell
+.PP
+.BI "mt_run <" function_name ">"
+.SH DESCRIPTION
+.PP
+.BR mt_run (3)
+runs a single test specified in
+.IR function_name .
+Inside function you can call
+.BR mt_assert (3)
+and
+.BR mt_fail (3).
+If none if these functions are called inside test function,
+.B mtest
+will mark test as successful.
+After function finishes its work,
+.BR mt_run (3)
+will print test status and a
+.I function_name
+to know which test passed or failed.
+.PP
+.BR mt_run_named (3)
+works similar, but also takes
+.IR test_name ,
+that will be printed instead of
+.I function_name
+when reporting test results.
+.I test_name
+should be simple
+. Bconst char *.
+.PP
+Optionally user can also set two function pointers
+.I mt_prepare_test
+and
+.I mt_cleanup_test
+that take no argument and return nothing.
+These functions will be called before and after calling test
+.IR function_name .
+.PP
+When testing from shell, it is only neccessary to define functions
+.I mt_prepare_test
+and
+.I mt_cleanup_test
+and
+.B mtest
+will use then automatically
+.SH EXAMPLE
+.PP
+c/c++
+.PP
+.EX
+    #include <mtest.h>
+    #include "foo.h"
+
+    mt_defs();
+
+    static void test(void)
+    {
+        mt_assert(foo() == 0);
+    }
+
+    int main(void)
+    {
+        mt_run(test);
+        mt_run_named(test, "test param 1");
+        mt_run_named(test, "test_param 2");
+
+        mt_return();
+    }
+.EX
+.PP
+shell
+.PP
+.EX
+    #!/bin/sh
+
+    . ./mtest.sh
+
+    test_one()
+    {
+        a=1
+        a=$((a + 1))
+        mt_fail "[ $a -eq 2 ]"
+    }
+
+    mt_run test_one
+    mt_return
+.EE
+.SH "SEE ALSO"
+.PP
+.BR mt_defs (3),
+.BR mt_defs_ext (3),
+.BR mt_assert (3),
+.BR mt_fail (3),
+.BR mt_fok (3),
+.BR mt_ferr (3),
+.BR mt_return (3)
+.BR mtest_overview (7),

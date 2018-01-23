@@ -1,0 +1,78 @@
+.TH "MT_FOK" "3" "17 January 2018 (v1.1.0)" "bofc.pl"
+.SH NAME
+.PP
+.BR mt_fok ,
+.B mt_ferr
+- shortcut macro to test if function executed as expected.
+.SH SYNOPSIS
+.PP
+.B #include <mtest.h>
+.PP
+.BI "mt_fok(" function_call ")"
+.br
+.BI "mt_ferr(" function_call ", " errno_value ")"
+.SH DESCRIPTION
+.PP
+Macros are a simple shortcuts to perform test on functions that return either
+-1 or 0.
+By convention 0 means success and -1 means error and error reason is
+stored in
+.B errno
+variable.
+If function returns different values than 0 or -1, ordinary
+.BR mt_fail (3)
+should be used instead.
+.PP
+.RB mt_fok (3)
+simply expects that function returns 0.
+.PP
+.BR mt_ferr (3)
+expects function to return -1, and sets
+.B errno
+value to
+.IR errno_value .
+.PP
+Both functions uses
+.BR mt_fail (3)
+under the hood.
+.SH EXAMPLE
+.PP
+.EX
+    #include <mtest.h>
+    #include <errno.h>
+
+    mt_defs();
+
+    static int f1(void)
+    {
+        return 0;
+    }
+
+    static int f2(void)
+    {
+        errno = ENOSYS;
+        return -1;
+    }
+
+    static void t1(void)
+    {
+        mt_fok(f1());
+        mt_ferr(f2(), ENOSYS);
+    }
+
+    int main(void)
+    {
+        mt_run(t1);
+        mt_return();
+    }
+.EE
+.SH "SEE ALSO"
+.PP
+.BR mt_defs (3),
+.BR mt_defs_ext (3),
+.BR mt_run (3),
+.BR mt_run_named (3),
+.BR mt_assert (3),
+.BR mt_fail (3),
+.BR mt_return (3)
+.BR mtest_overview (7),

@@ -1,0 +1,121 @@
+.TH "MT_DEFS" "3" "17 January 2018 (v1.1.0)" "bofc.pl"
+.SH NAME
+.PP
+.BR mt_defs ,
+.B mt_defs_ext
+- defines variables for test framework
+.SH SYNOPSIS
+.PP
+.B #include <mtest.h>
+.PP
+.B mt_defs()
+.br
+.B mt_defs_ext()
+.SH DESCRIPTION
+.PP
+.BR mt_defs (3)
+defines all variables needed by the test framework.
+This must be called exactly once in a global scope, before calling any of the
+.B mtest
+function.
+Calling this macro in two places will lead to 'double definition' linker error.
+As a rule of thumb, it is good to call this macro in test-main.c file after
+#include.
+.PP
+If all tests are in a single file (like test-main.c) calling
+.BR mt_defs (3)
+is sufficient, but if tests are splitted into more .c files, you should also
+call
+.BR mt_defs_ext (3)
+in all .c files that uses
+.B mtest
+functions.
+As with
+.BR mt_defs (3),
+it should be called before any call to
+.B mtest
+function.
+.PP
+Note, don't call
+.BR mt_defs_ext (3)
+if
+.B mt_defs (3)
+has already been called in a single file.
+.SH EXAMPLE
+.PP
+.EX
+    /* test-main.c */
+
+    #include <mtest.h>
+
+    #include "t1.h"
+    #include "t2.h"
+    #include "library-under-test.h"
+
+    mt_defs();
+
+    static void test_zero(void)
+    {
+        mt_assert(foo() == 0);
+    }
+
+    int main(void)
+    {
+        mt_run(test_zero);
+        mt_run(test_one);
+        test_group();
+
+        mt_return();
+    }
+
+
+    /* t1.c */
+
+    #include <mtest.h>
+
+    #include "t1.h"
+    #include "library-under-test.h"
+
+    mt_defs_ext();
+
+    void test_one(void)
+    {
+        mt_assert(bar() == 0);
+    }
+
+
+    /* t2.c */
+
+    #include <mtest.h>
+
+    #include "t2.h"
+    #include "library-under-test.h"
+
+    mt_defs_ext();
+
+    static void test_two(void)
+    {
+        mt_assert(baz() == 0);
+    }
+
+    static void test_three(void)
+    {
+        mt_assert(qux() == 0);
+    }
+
+    void test_group(void)
+    {
+        mt_run(test_two);
+        mt_run(test_three);
+    }
+.EE
+.SH "SEE ALSO"
+.PP
+.BR mt_run (3),
+.BR mt_run_named (3),
+.BR mt_assert (3),
+.BR mt_fail (3),
+.BR mt_fok (3),
+.BR mt_ferr (3),
+.BR mt_return (3)
+.BR mtest_overview (7)

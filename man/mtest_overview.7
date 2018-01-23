@@ -1,0 +1,117 @@
+.TH "MTEST" "7" "17 January 2018 (v1.1.0)" "bofc.pl"
+.SH "NAME"
+.PP
+.B mtest_overview
+- overview of
+.B mtest
+testing framework
+.SH "DESCRIPTION"
+.PP
+.B mtest
+- very simple test framework for testing anything. mtest currently
+supports following languages:
+.PP
+For c/c++
+.PP
+.BI "mt_defs()"
+.br
+.BI "mt_defs_ext()"
+.br
+.BI "mt_run(" function_name ")"
+.br
+.BI "mt_run_named(" function_name ", " test_name ")"
+.br
+.BI "mt_assert(" expression ")"
+.br
+.BI "mt_fail(" expression ")"
+.br
+.BI "mt_fok(" function_call ")"
+.br
+.BI "mt_ferr(" function_call ", " errno_value ")"
+.br
+.BI "mt_return()"
+.PP
+For shell
+.PP
+.BI "mt_run <" function_name ">"
+.br
+.BI "mt_fail <" expression ">"
+.br
+.BR "mt_return"
+.PP
+Test output is compatible with
+.B TAP
+(which stands for Test Anything Protocol), so its output can be piped to another
+tool (like Jenkins or automake tests) for nice output.
+.PP
+Each test binary (written in c/c++) should contain call to
+.BR mt_defs (3)
+anywhere in a global scope and
+.RB mt_return (3)
+at the end of tests.
+.PP
+Tests in shell only requires
+.RB mt_return (3)
+at the end of tests
+.SH "EXAMPLE"
+.PP
+.EX
+    #include <mtest.h>
+    #include <stdlib.h>
+    #include "file_to_test.h"
+
+    mt_defs(); /* defines necessary variables for mtest */
+
+    static void test_one(void)
+    {
+        mt_assert(foo() == 0);
+        mt_assert(bar() == 0);
+    }
+
+    static void test_two(void)
+    {
+        unsigned char *mem;
+
+        mt_assert((mem = malloc(100)) != NULL);
+        mt_fok(baz(mem));
+        mt_ferr(qux(mem), ENOSYS);
+
+        free(mem);
+    }
+
+    int main(void)
+    {
+        mt_run(test_one);
+        mt_run(test_two);
+
+        mt_return();
+    }
+.EE
+.PP
+Example of using mt in posix shell
+.PP
+.EX
+    #!/bin/sh
+
+    . ./mtest.sh
+
+    test_one()
+    {
+        a=1
+        a=$((a + 1))
+        mt_fail "[ $a -eq 2 ]"
+    }
+
+    mt_run test_one
+    mt_return
+.EE
+.SH "SEE ALSO"
+.PP
+.BR mt_defs (3),
+.BR mt_defs_ext (3),
+.BR mt_run (3),
+.BR mt_assert (3),
+.BR mt_fail (3),
+.BR mt_fok (3),
+.BR mt_ferr (3),
+.BR mt_return (3)
