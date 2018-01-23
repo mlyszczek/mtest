@@ -6,30 +6,30 @@ About
 
 **mtest** - macro test, is a very small unit test framework. Really small, it
 contains only single header file with macros only. **mtest** outputs test
-results in TAP (https://testanything.org/) format, so it can be piped to
+results in [TAP](https://testanything.org/) format, so it can be piped to
 anything (like automake or jenkins) for even nicer output.
 
 Dependencies
 ============
 
-Valid C89 compiler with *fprintf* function implemented.
+Valid C89 compiler with **fprintf** function implemented.
 Posix shell for testing from shell.
 
 Instalation
 ===========
 
 Just copy **mtest.h** into your project tree, and include it. It's that easy.
-You can also call *make install* so **mtest** is copied into local machine. Just
-mind that **mtest** will become your build dependency, and it's so small, it is
-usually not necessary. The good thing of calling **make install** is that, man
-pages will be installed in your system, so you can have quick overview of the
-library if you forget anything.
+You can also call **make install** so **mtest** is copied into local machine.
+Just mind that **mtest** will become your build dependency, and it's so small,
+it is usually not necessary. The good thing of calling **make install** is that,
+man pages will be installed in your system, so you can have quick overview of
+the library if you forget anything.
 
 Documentation
 =============
 
 Full documentation (and some more info) is available at
-[mtest.kurwinet.pl](http://mtest.kurwinet.pl/manuals/man3.html)
+[mtest.kurwinet.pl](http://mtest.kurwinet.pl/manuals.html)
 
 There are also man pages in **man** directory.
 
