@@ -15,6 +15,7 @@ install:
 	install -m 0644 -D -t $(DESTDIR)/share/man/man3 man/mt_run_named.3
 
 www:
+	./gen-download-page.sh
 	./man2html.sh
 	$(MAKE) -C www
 
