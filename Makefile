@@ -21,8 +21,9 @@ www:
 
 clean:
 	$(MAKE) clean -C www
+	$(MAKE) clean -C example
 
-dist:
+dist: clean
 	./dist.sh
 
 .PHONY: www clean dist install
