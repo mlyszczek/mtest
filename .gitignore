@@ -1,5 +1,5 @@
 *.o
-example
+example/example
 www/manuals
 www/downloads.html
 www/out
