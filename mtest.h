@@ -3,7 +3,7 @@
     Author: Michał Łyszczek <michal.lyszczek@bofc.pl>
    ==========================================================================
      __________________________________________________________
-    /                   mtest version v1.1.2                   \
+    /                   mtest version v1.1.3                   \
     |                                                          |
     |    Simple test framework that uses TAP output format     |
     \                 http://testanything.org                  /
@@ -59,6 +59,8 @@
     int mt_test_status;                                                        \
     int mt_total_tests = 0;                                                    \
     int mt_total_failed = 0;                                                   \
+    int mt_total_checks = 0;                                                   \
+    int mt_checks_failed = 0;                                                  \
     static void (*mt_prepare_test)(void);                                      \
     static void (*mt_cleanup_test)(void)
 
@@ -75,6 +77,8 @@
     extern int mt_test_status;                                                 \
     extern int mt_total_tests;                                                 \
     extern int mt_total_failed;                                                \
+    extern int mt_total_checks;                                                \
+    extern int mt_checks_failed;                                               \
     static void (*mt_prepare_test)(void);                                      \
     static void (*mt_cleanup_test)(void)
 
@@ -119,11 +123,13 @@
 
 
 #define mt_assert(e) do {                                                      \
+    ++mt_total_checks;                                                         \
     if (!(e))                                                                  \
     {                                                                          \
         fprintf(stdout, "# assert [%s:%d] %s, %s\n",                           \
                 __FILE__, __LINE__, curr_test, #e);                            \
         mt_test_status = -1;                                                   \
+        ++mt_checks_failed;                                                    \
         return;                                                                \
     } } while (0)
 
@@ -135,11 +141,13 @@
 
 
 #define mt_fail(e) do {                                                        \
+    ++mt_total_checks;                                                         \
     if (!(e))                                                                  \
     {                                                                          \
         fprintf(stdout, "# assert [%s:%d] %s, %s\n",                           \
                 __FILE__, __LINE__, curr_test, #e);                            \
         mt_test_status = -1;                                                   \
+        ++mt_checks_failed;                                                    \
     } } while (0)
 
 
@@ -174,4 +182,10 @@
 
 #define mt_return() do {                                                       \
     fprintf(stdout, "1..%d\n", mt_total_tests);                                \
+    fprintf(stderr, "# total tests.......:%4d\n", mt_total_tests);            \
+    fprintf(stderr, "# passed tests......:%4d\n", mt_total_tests - mt_total_failed); \
+    fprintf(stderr, "# failed tests......:%4d\n", mt_total_failed);           \
+    fprintf(stderr, "# total checks......:%4d\n", mt_total_checks);           \
+    fprintf(stderr, "# passed checks.....:%4d\n", mt_total_checks - mt_checks_failed); \
+    fprintf(stderr, "# failed checks.....:%4d\n", mt_checks_failed);          \
     return mt_total_failed > 254 ? 254 : mt_total_failed; } while(0)

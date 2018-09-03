@@ -23,6 +23,10 @@ Description
     main function, calls test group for add tests, and call directly tests from
     sub-tests. Also includes single test inside.
 
+  * named-tests
+    looped test, when you can insert own test name (instead of mere function
+    name) for example with parameters of the test
+
 Run
 ===
 
@@ -32,7 +36,7 @@ included below
 Output
 ======
 
-~~{.sh}
+~~~{.sh}
 $ ./example
 ok 1 - add_test_valid
 # assert [add-tests.c:43] add_test_invalid_single_assert, add(3, 2) == 6
@@ -48,5 +52,20 @@ ok 6 - sub_test_valid
 # assert [sub-tests.c:20] sub_test_invalid, sub(5, 3) == 5
 not ok 7 - sub_test_invalid
 ok 8 - sub_test
-1..8
+ok 9 - test add(0, 0)
+ok 10 - test add(0, 1)
+ok 11 - test add(0, 2)
+ok 12 - test add(1, 0)
+ok 13 - test add(1, 1)
+ok 14 - test add(1, 2)
+ok 15 - test add(2, 0)
+ok 16 - test add(2, 1)
+ok 17 - test add(2, 2)
+1..17
+# total tests.......:  17
+# passed tests......:  12
+# failed tests......:   5
+# total checks......:  25
+# passed checks.....:  19
+# failed checks.....:   6
 ~~~

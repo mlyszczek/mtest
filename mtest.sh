@@ -5,7 +5,7 @@
 #   Author: Michał Łyszczek <michal.lyszczek@bofc.pl>
 #  ==========================================================================
 #    __________________________________________________________
-#   /                   mtest version v1.1.2                   \
+#   /                   mtest version v1.1.3                   \
 #   |                                                          |
 #   |    Simple test framework that uses TAP output format     |
 #   \                 http://testanything.org                  /
@@ -42,6 +42,8 @@
 mt_test_status=0
 mt_total_tests=0
 mt_total_failed=0
+mt_total_checks=0
+mt_checks_failed=0
 mt_current_test="none"
 
 
@@ -120,10 +122,12 @@ mt_run_named()
 
 mt_fail()
 {
+    ((mt_total_checks++))
     if ! eval $1
     then
         echo "# assert $mt_current_test, '$1'"
         mt_test_status=1
+        ((mt_checks_failed++))
     fi
 }
 
@@ -141,6 +145,16 @@ mt_fail()
 mt_return()
 {
     echo "1..$mt_total_tests"
+
+    mt_passed_tests=$((mt_total_tests - mt_total_failed))
+    mt_passed_checks=$((mt_total_checks - mt_checks_failed))
+
+    printf "# total tests.......: %4d\n" ${mt_total_tests}
+    printf "# passed tests......: %4d\n" ${mt_passed_tests}
+    printf "# failed tests......: %4d\n" ${mt_total_failed}
+    printf "# total checks......: %4d\n" ${mt_total_checks}
+    printf "# passed checks.....: %4d\n" ${mt_passed_checks}
+    printf "# failed checks.....: %4d\n" ${mt_checks_failed}
 
     if [ $mt_total_failed -gt 254 ]
     then
