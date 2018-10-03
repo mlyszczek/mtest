@@ -3,7 +3,7 @@
     Author: Michał Łyszczek <michal.lyszczek@bofc.pl>
    ==========================================================================
      __________________________________________________________
-    /                   mtest version v1.1.3                   \
+    /                   mtest version v1.1.4                   \
     |                                                          |
     |    Simple test framework that uses TAP output format     |
     \                 http://testanything.org                  /
@@ -126,7 +126,7 @@
     ++mt_total_checks;                                                         \
     if (!(e))                                                                  \
     {                                                                          \
-        fprintf(stdout, "# assert [%s:%d] %s, %s\n",                           \
+        fprintf(stderr, "# assert [%s:%d] %s, %s\n",                           \
                 __FILE__, __LINE__, curr_test, #e);                            \
         mt_test_status = -1;                                                   \
         ++mt_checks_failed;                                                    \
@@ -144,7 +144,7 @@
     ++mt_total_checks;                                                         \
     if (!(e))                                                                  \
     {                                                                          \
-        fprintf(stdout, "# assert [%s:%d] %s, %s\n",                           \
+        fprintf(stderr, "# assert [%s:%d] %s, %s\n",                           \
                 __FILE__, __LINE__, curr_test, #e);                            \
         mt_test_status = -1;                                                   \
         ++mt_checks_failed;                                                    \
