@@ -3,6 +3,7 @@
 #include "add-tests.h"
 #include "sub-tests.h"
 #include "named-tests.h"
+#include "param-tests.h"
 
 #include "calc.h"
 

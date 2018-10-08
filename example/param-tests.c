@@ -72,7 +72,7 @@ void named_param_test_in_loop(void)
              */
 
             sprintf(test_name, "named param test add(%d, %d)", p.a, p.b);
-            mt_run_named_param(add_test, &p, test_name);
+            mt_run_param_named(add_test, &p, test_name);
         }
     }
 }

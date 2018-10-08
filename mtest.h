@@ -98,7 +98,7 @@
    ========================================================================== */
 
 
-#define mt_run_param(f, p) mt_run_named_param(f, p, #f)
+#define mt_run_param(f, p) mt_run_param_named(f, p, #f)
 
 
 /* ==========================================================================
@@ -132,7 +132,7 @@
    ========================================================================== */
 
 
-#define mt_run_named_param(f, p, n) do {                                       \
+#define mt_run_param_named(f, p, n) do {                                       \
     curr_test = n;                                                             \
     mt_test_status = 0;                                                        \
     ++mt_total_tests;                                                          \

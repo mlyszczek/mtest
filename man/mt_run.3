@@ -19,7 +19,7 @@ c/c++
 .br
 .BI "mt_run_named(" function_name ", " test_name ")"
 .br
-.BI "mt_run_named_param(" function_name_param ", " parameter ", " test_name ")"
+.BI "mt_run_param_named(" function_name_param ", " parameter ", " test_name ")"
 .PP
 .BI "static void (*" mt_prepare_test ")(void)"
 .br
@@ -58,7 +58,7 @@ should be simple
 .PP
 .BR mt_run_param (3)
 and
-.BR mt_run_named_param (3)
+.BR mt_run_param_named (3)
 works in the same way as they non-parameter counterpart, but
 .I parameter
 will be passed to
