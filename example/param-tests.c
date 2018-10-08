@@ -10,8 +10,12 @@
 
 
 mt_defs_ext();
-static int a, b;
 
+struct test_param
+{
+    int a;
+    int b;
+};
 
 /* ==========================================================================
     test to run, mt_run_named takes functions without parameters, so we have
@@ -19,22 +23,46 @@ static int a, b;
    ========================================================================== */
 
 
-static void add_test(void)
+static void add_test(const struct test_param *p)
 {
-    mt_fail(add(a, b) == a + b);
+    mt_fail(add(p->a, p->b) == p->a + p->b);
 }
 
 
 /* ==========================================================================
-    run single test with different parameters in a loop
+    Run multiple tests every time with different argument
    ========================================================================== */
 
 
-void named_test_in_loop(void)
+void param_test_in_loop(void)
 {
-    for (a = 0; a != 3; ++a)
+    struct test_param p;
+
+    for (p.a = 0; p.a != 3; ++p.a)
     {
-        for (b = 0; b != 3; ++b)
+        for (p.b = 0; p.b != 3; ++p.b)
+        {
+            mt_run_param(add_test, &p);
+        }
+    }
+}
+
+/* ==========================================================================
+    Run multiple tests every time with different argument, also print
+    arguments of the run test.
+
+    This is even better than alone param as it allows to see parameters that
+    caused test to fail
+   ========================================================================== */
+
+
+void named_param_test_in_loop(void)
+{
+    struct test_param p;
+
+    for (p.a = 0; p.a != 3; ++p.a)
+    {
+        for (p.b = 0; p.b != 3; ++p.b)
         {
             char test_name[32];
 
@@ -43,8 +71,8 @@ void named_test_in_loop(void)
              * so we have to construct name by ourselfs
              */
 
-            sprintf(test_name, "named test add(%d, %d)", a, b);
-            mt_run_named(add_test, test_name);
+            sprintf(test_name, "named param test add(%d, %d)", p.a, p.b);
+            mt_run_named_param(add_test, &p, test_name);
         }
     }
 }

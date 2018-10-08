@@ -47,6 +47,13 @@ int main(void)
     named_test_in_loop();
 
     /*
+     * run tests with parameters and named parameters
+     */
+
+    param_test_in_loop();
+    named_param_test_in_loop();
+
+    /*
      * and at the end we call mt_return, which will print clousure information
      * and will exit test program with apropriate return code
      */
