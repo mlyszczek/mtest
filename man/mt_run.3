@@ -9,11 +9,17 @@ c/c++
 .PP
 .B #include <mtest.h>
 .PP
-.BI "void (*" function_name ")(void)
+.BI "void (*" function_name ")(void)"
 .br
+.BI "void (*" function_name_param ")(void *" parameter ")"
+.PP
 .BI "mt_run(" function_name ")"
 .br
+.BI "mt_run_param(" function_name_param ", " parameter ")"
+.br
 .BI "mt_run_named(" function_name ", " test_name ")"
+.br
+.BI "mt_run_named_param(" function_name_param ", " parameter ", " test_name ")"
 .PP
 .BI "static void (*" mt_prepare_test ")(void)"
 .br
@@ -48,7 +54,15 @@ that will be printed instead of
 when reporting test results.
 .I test_name
 should be simple
-. Bconst char *.
+.B const char *.
+.PP
+.BR mt_run_param (3)
+and
+.BR mt_run_named_param (3)
+works in the same way as they non-parameter counterpart, but
+.I parameter
+will be passed to
+.IR function_name_param .
 .PP
 Optionally user can also set two function pointers
 .I mt_prepare_test
@@ -75,6 +89,11 @@ c/c++
 
     mt_defs();
 
+    static void test_param(void *param)
+    {
+        mt_assert(bar((int *)i) == 0);
+    }
+
     static void test(void)
     {
         mt_assert(foo() == 0);
@@ -82,9 +101,16 @@ c/c++
 
     int main(void)
     {
+        int i;
+
         mt_run(test);
         mt_run_named(test, "test param 1");
         mt_run_named(test, "test_param 2");
+
+        for (i = 0; i != 5; ++i)
+        {
+            mt_run_param(test_param, &i);
+        }
 
         mt_return();
     }
