@@ -185,12 +185,22 @@
 
 
 /* ==========================================================================
-    shortcut macro to test if function exits with success (with return value
-    set to 0)
+    Checks if function exits with success (return value == 0).
    ========================================================================== */
 
 
-#define mt_fok(e) mt_fail(e == 0)
+#define mt_fok(e) do {                                                         \
+    ++mt_total_checks;                                                         \
+    int ret;                                                                   \
+    if ((ret = e) != 0)                                                        \
+    {                                                                          \
+        fprintf(stderr, "# assert [%s:%d] %s, %s != ok\n",                     \
+                __FILE__, __LINE__, curr_test, #e);                            \
+        fprintf(stderr, "# assert [%s:%d] %s, return: %d, errno: %d\n",        \
+                __FILE__, __LINE__, curr_test, ret, errno);                    \
+        mt_test_status = -1;                                                   \
+        ++mt_checks_failed;                                                    \
+    } } while (0)
 
 
 /* ==========================================================================
@@ -203,7 +213,12 @@
     errno = 0;                                                                 \
     mt_fail(e == -1);                                                          \
     mt_fail(errno == errn);                                                    \
-    } while (0)
+    if (errno != errn)                                                         \
+    {                                                                          \
+        fprintf(stderr, "# assert [%s:%d] %s, got errno: %d\n",                \
+                __FILE__, __LINE__, curr_test, errno);                         \
+    } } while (0)
+
 
 /* ==========================================================================
     prints test plan, in format 1..<number_of_test_run>.  If all tests  have
