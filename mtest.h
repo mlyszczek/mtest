@@ -190,8 +190,8 @@
 
 
 #define mt_fok(e) do {                                                         \
-    ++mt_total_checks;                                                         \
     int ret;                                                                   \
+    ++mt_total_checks;                                                         \
     if ((ret = e) != 0)                                                        \
     {                                                                          \
         fprintf(stderr, "# assert [%s:%d] %s, %s != ok\n",                     \
