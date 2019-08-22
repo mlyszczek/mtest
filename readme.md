@@ -29,7 +29,7 @@ Documentation
 =============
 
 Full documentation (and some more info) is available at
-[mtest.kurwinet.pl](http://mtest.kurwinet.pl/manuals.html)
+[mtest.bofc.pl](http://mtest.bofc.pl/manuals.html)
 
 There are also man pages in **man** directory.
 
@@ -44,13 +44,13 @@ it's a proof that unit testing can be very easy to implement.
 Examples
 ========
 
-Example test is in [example](http://git.kurwinet.pl/mtest/tree/example)
+Example test is in [example](http://git.bofc.pl/mtest/tree/example)
 directory. Also following projects use **mtest** for testing:
 
-* [memperf](http://git.kurwinet.pl/memperf)
-* [embedlog](http://git.kurwinet.pl/embedlog)
-* [kurload](http://git.kurwinet.pl/kurload)
-* [librb](http://git.kurwinet.pl/librb)
+* [memperf](http://git.bofc.pl/memperf)
+* [embedlog](http://git.bofc.pl/embedlog)
+* [kurload](http://git.bofc.pl/kurload)
+* [librb](http://git.bofc.pl/librb)
 
 Tests results are integrated with automake **make check** call.
 
@@ -67,6 +67,6 @@ Michał Łyszczek <michal.lyszczek@bofc.pl>
 See also
 ========
 
-* [project webpage](http://mtest.kurwinet.pl)
-* [git repository](http://git.kurwinet.pl/mtest)
+* [project webpage](http://mtest.bofc.pl)
+* [git repository](http://git.bofc.pl/mtest)
 * [test anything protocol (tap)](http://testanything.org)
