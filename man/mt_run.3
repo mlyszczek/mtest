@@ -27,7 +27,10 @@ c/c++
 .PP
 shell
 .PP
-.BI "mt_run <" function_name ">"
+.BI "mt_run <" function_name "> [" param1 "] [" ... "]"
+.br
+.BI "mt_run_named <" function_name "> <" test_name "> [" param1 "] \
+[" ... "]"
 .SH DESCRIPTION
 .PP
 .BR mt_run (3)
@@ -63,6 +66,19 @@ works in the same way as they non-parameter counterpart, but
 .I parameter
 will be passed to
 .IR function_name_param .
+When using shell functions, there is no
+.I param
+functions, but you can pass unspecified number of parameters to both
+.BR mt_run (3)
+and
+.BR mt_run_named (3).
+Since
+.I function_name
+is run via
+.B eval
+program, when you want to pass parameter with spaces, you need to use
+double quotes like
+.BR """'parameter\ with\ spaces'""" .
 .PP
 Optionally user can also set two function pointers
 .I mt_prepare_test
@@ -123,6 +139,14 @@ shell
 
     . ./mtest.sh
 
+    test_two()
+    {
+        a=$1
+        b=$2
+        c=$((a + b))
+        mt_fail "[ $b -eq $(( c - a )) ]"
+    }
+
     test_one()
     {
         a=1
@@ -131,6 +155,8 @@ shell
     }
 
     mt_run test_one
+    mt_run test_two 5 3
+
     mt_return
 .EE
 .SH "SEE ALSO"

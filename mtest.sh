@@ -64,28 +64,51 @@ mt_current_test="none"
 
 
 ## ==========================================================================
-#   run specified test
+#   Runs specified test with optional custom parameters. Check info about
+#   mt_run_named() to learn more.
 #
 #   $1 - function name as a string - will be passed to eval
+#   $@ - unspecified number of parameters to pass to function $1
 ## ==========================================================================
 
 
 mt_run()
 {
-    mt_run_named $1 $1
+    function_name=$1
+    shift
+    mt_run_named $function_name $function_name $@
 }
 
 
 ## ==========================================================================
-#   run specified test with custom name to be printed during report
+#   run specified test with custom name to be printed during report and
+#   also pass optional arguments to test function.
 #
 #   $1 - function name as a string - will be passed to eval
 #   $2 - test name, will be used instead of $1 in report
+#   $@ - unspecified number of parameters to pass to function $1
+#
+#   Consider:
+#
+#   foo()
+#   {
+#       echo param1: $1 param2: $2 param3: $3
+#   }
+#
+#   mt_run_named_param foo test-name 42 "'string with space'" string
+#
+#   will print
+#       param1: 42 param2: string with space param3: string
+#
+#   NOTE: due to the fact that function is called by `eval', when you
+#   want to pass string with space, you need to use double quotation:
+#   like this "''".
 ## ==========================================================================
 
 
 mt_run_named()
 {
+    function_name="$1"
     mt_current_test="$2"
     mt_test_status=0
     mt_total_tests=$((mt_total_tests + 1))
@@ -95,7 +118,9 @@ mt_run_named()
         mt_prepare_test
     fi
 
-    eval "$1"
+    shift
+    shift
+    eval $function_name $@
 
     if type mt_cleanup_test > /dev/null 2>&1
     then
