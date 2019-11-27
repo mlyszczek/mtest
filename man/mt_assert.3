@@ -17,6 +17,8 @@ c/c++
 shell
 .PP
 .BI "mt_fail <" expression ">"
+.br
+.BI "mt_dfail <" command "> [" argumnet "] ..."
 .SH DESCRIPTION
 .PP
 Macro
@@ -38,6 +40,22 @@ works just as
 but function is not forced to exit and can continue execution.
 This is good when test allocates some memory and we need to clean up before
 returning.
+.PP
+For shell scripting,
+.BR mt_fail (3)
+passed
+.I expression
+to eval.
+.I expression
+must be single argument, so it should be closed in "" to preserve spaces.
+If
+.I expression
+is easy and does not required
+.B eval
+to process, one can use
+.BR mt_dfail (3)
+which passes all arguments directly to if statement
+.B """if ! ${@}"""
 .SH EXAMPLE
 .PP
 Proper example can be found in

@@ -158,6 +158,26 @@ mt_fail()
 
 
 ## ==========================================================================
+#   same as mt_fail() but does not use eval and arguments are directly
+#   passed to if
+#
+#   $@ - code to run
+## ==========================================================================
+
+
+mt_dfail()
+{
+    mt_total_checks=$(( mt_total_checks + 1 ))
+    if ! $@
+    then
+        echo "# assert $mt_current_test, '$1'"
+        mt_test_status=1
+        mt_checks_failed=$(( mt_checks_failed + 1 ))
+    fi
+}
+
+
+## ==========================================================================
 #   prints test plant in  format 1..<number_of_test_run>.  If all tests have
 #   passed,  macro will exit script with code 0,  else  it returns number of
 #   failed tests.  If number of failed tests  exceeds 254,  then 254 will be

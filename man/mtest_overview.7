@@ -41,6 +41,8 @@ For shell
 .br
 .BI "mt_fail <" expression ">"
 .br
+.BI "mt_dfail <" command "> [" argumnet "] ..."
+.br
 .BR "mt_return"
 .PP
 Test output is compatible with
@@ -104,6 +106,7 @@ Example of using mt in posix shell
         a=1
         a=$((a + 1))
         mt_fail "[ $a -eq 2 ]"
+        mt_dfail [ $a -eq 3 ]
     }
 
     mt_run test_one
