@@ -5,7 +5,7 @@
 #   Author: Michał Łyszczek <michal.lyszczek@bofc.pl>
 #  ==========================================================================
 #    __________________________________________________________
-#   /                   mtest version v1.1.3                   \
+#   /                   mtest version v1.2.0                   \
 #   |                                                          |
 #   |    Simple test framework that uses TAP output format     |
 #   \                 http://testanything.org                  /
