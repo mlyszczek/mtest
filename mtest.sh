@@ -74,9 +74,9 @@ mt_current_test="none"
 
 mt_run()
 {
-    function_name=$1
-    shift
-    mt_run_named $function_name $function_name $@
+	function_name=$1
+	shift
+	mt_run_named $function_name $function_name $@
 }
 
 
@@ -108,32 +108,29 @@ mt_run()
 
 mt_run_named()
 {
-    function_name="$1"
-    mt_current_test="$2"
-    mt_test_status=0
-    mt_total_tests=$((mt_total_tests + 1))
+	function_name="$1"
+	mt_current_test="$2"
+	mt_test_status=0
+	mt_total_tests=$((mt_total_tests + 1))
 
-    if type mt_prepare_test > /dev/null 2>&1
-    then
-        mt_prepare_test
-    fi
+	if type mt_prepare_test > /dev/null 2>&1; then
+		mt_prepare_test
+	fi
 
-    shift
-    shift
-    eval $function_name $@
+	shift
+	shift
+	eval $function_name $@
 
-    if type mt_cleanup_test > /dev/null 2>&1
-    then
-        mt_cleanup_test
-    fi
+	if type mt_cleanup_test > /dev/null 2>&1; then
+		mt_cleanup_test
+	fi
 
-    if [ $mt_test_status -ne 0 ]
-    then
-        echo "not ok $mt_total_tests - $mt_current_test"
-        mt_total_failed=$((mt_total_failed + 1))
-    else
-        echo "ok $mt_total_tests - $mt_current_test"
-    fi
+	if [ $mt_test_status -ne 0 ]; then
+		echo "not ok $mt_total_tests - $mt_current_test"
+		mt_total_failed=$((mt_total_failed + 1))
+	else
+		echo "ok $mt_total_tests - $mt_current_test"
+	fi
 }
 
 
@@ -147,13 +144,12 @@ mt_run_named()
 
 mt_fail()
 {
-    mt_total_checks=$(( mt_total_checks + 1 ))
-    if ! eval $1
-    then
-        echo "# assert $mt_current_test, '$1'"
-        mt_test_status=1
-        mt_checks_failed=$(( mt_checks_failed + 1 ))
-    fi
+	mt_total_checks=$(( mt_total_checks + 1 ))
+	if ! eval $1; then
+		echo "# assert $mt_current_test, '$1'"
+		mt_test_status=1
+		mt_checks_failed=$(( mt_checks_failed + 1 ))
+	fi
 }
 
 
@@ -167,13 +163,12 @@ mt_fail()
 
 mt_dfail()
 {
-    mt_total_checks=$(( mt_total_checks + 1 ))
-    if ! $@
-    then
-        echo "# assert $mt_current_test, '$1'"
-        mt_test_status=1
-        mt_checks_failed=$(( mt_checks_failed + 1 ))
-    fi
+	mt_total_checks=$(( mt_total_checks + 1 ))
+	if ! $@; then
+		echo "# assert $mt_current_test, '$1'"
+		mt_test_status=1
+		mt_checks_failed=$(( mt_checks_failed + 1 ))
+	fi
 }
 
 
@@ -189,22 +184,21 @@ mt_dfail()
 
 mt_return()
 {
-    echo "1..$mt_total_tests"
+	echo "1..$mt_total_tests"
 
-    mt_passed_tests=$((mt_total_tests - mt_total_failed))
-    mt_passed_checks=$((mt_total_checks - mt_checks_failed))
+	mt_passed_tests=$((mt_total_tests - mt_total_failed))
+	mt_passed_checks=$((mt_total_checks - mt_checks_failed))
 
-    printf "# total tests.......: %4d\n" ${mt_total_tests}
-    printf "# passed tests......: %4d\n" ${mt_passed_tests}
-    printf "# failed tests......: %4d\n" ${mt_total_failed}
-    printf "# total checks......: %4d\n" ${mt_total_checks}
-    printf "# passed checks.....: %4d\n" ${mt_passed_checks}
-    printf "# failed checks.....: %4d\n" ${mt_checks_failed}
+	printf "# total tests.......: %4d\n" ${mt_total_tests}
+	printf "# passed tests......: %4d\n" ${mt_passed_tests}
+	printf "# failed tests......: %4d\n" ${mt_total_failed}
+	printf "# total checks......: %4d\n" ${mt_total_checks}
+	printf "# passed checks.....: %4d\n" ${mt_passed_checks}
+	printf "# failed checks.....: %4d\n" ${mt_checks_failed}
 
-    if [ $mt_total_failed -gt 254 ]
-    then
-        exit 254
-    else
-        exit $mt_total_failed
-    fi
+	if [ $mt_total_failed -gt 254 ]; then
+		exit 254
+	else
+		exit $mt_total_failed
+	fi
 }
