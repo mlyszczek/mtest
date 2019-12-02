@@ -151,7 +151,7 @@ mt_dfail()
 {
 	mt_total_checks=$(( mt_total_checks + 1 ))
 	if ! $@; then
-		echo "# assert $mt_current_test, '$1'"
+		echo "# assert $mt_current_test, '$@'"
 		mt_test_status=1
 		mt_checks_failed=$(( mt_checks_failed + 1 ))
 	fi
