@@ -39,7 +39,7 @@ For shell
 .PP
 .BI "mt_run <" function_name ">"
 .br
-.BI "mt_fail <" expression ">"
+.BI "mt_fail <" expression "> [" error_message "]"
 .br
 .BI "mt_dfail <" command "> [" argumnet "] ..."
 .br
@@ -107,6 +107,7 @@ Example of using mt in posix shell
         a=$((a + 1))
         mt_fail "[ $a -eq 2 ]"
         mt_dfail [ $a -eq 3 ]
+        mt_fail "[ $a -eq 4 ]" "a($a) is not equal to 4"
     }
 
     mt_run test_one

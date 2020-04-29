@@ -16,7 +16,7 @@ c/c++
 .PP
 shell
 .PP
-.BI "mt_fail <" expression ">"
+.BI "mt_fail <" expression "> [" error_message "]"
 .br
 .BI "mt_dfail <" command "> [" argumnet "] ..."
 .SH DESCRIPTION
@@ -50,12 +50,23 @@ to eval.
 must be single argument, so it should be closed in "" to preserve spaces.
 If
 .I expression
-is easy and does not required
+is easy and does not require
 .B eval
 to process, one can use
 .BR mt_dfail (3)
 which passes all arguments directly to if statement
-.B """if ! ${@}"""
+.BR """if ! ${@}""" .
+Normally when
+.BR mt_fail (3)
+fails, it prints
+.B # assert
+.I expression
+on stderr, but you can instead print own message by passing second argument
+to
+.BR mt_fail (3).
+This string will be directly passed to
+.B echo
+command.
 .SH EXAMPLE
 .PP
 Proper example can be found in

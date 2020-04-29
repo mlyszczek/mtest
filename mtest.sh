@@ -122,17 +122,23 @@ mt_run_named()
 
 ## ==========================================================================
 #   performs check on given command, if command returns error,  current test
-#   will be marked as failed.
+#   will be marked as failed. If second argument is provided, this string
+#   will be used as error message instead of "$1".
 #
 #   $1 - code to evaluate, simply passed to eval
+#   $2 - error message to print
 ## ==========================================================================
 
 
 mt_fail()
 {
+	error_msg="$1"
+	if [ $# -eq 2 ]; then
+		err_msg="$2"
+	fi
 	mt_total_checks=$(( mt_total_checks + 1 ))
 	if ! eval $1; then
-		echo "# assert $mt_current_test, '$1'"
+		echo "# assert $mt_current_test, '$err_msg'"
 		mt_test_status=1
 		mt_checks_failed=$(( mt_checks_failed + 1 ))
 	fi
