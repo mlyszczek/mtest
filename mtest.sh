@@ -137,8 +137,8 @@ mt_fail()
 		err_msg="$2"
 	fi
 	mt_total_checks=$(( mt_total_checks + 1 ))
-	if ! eval $1; then
-		echo "# assert $mt_current_test, '$err_msg'"
+	if ! eval $1 >&2; then
+		echo "# assert $mt_current_test, '$err_msg'" >&2
 		mt_test_status=1
 		mt_checks_failed=$(( mt_checks_failed + 1 ))
 	fi
@@ -156,8 +156,8 @@ mt_fail()
 mt_dfail()
 {
 	mt_total_checks=$(( mt_total_checks + 1 ))
-	if ! $@; then
-		echo "# assert $mt_current_test, '$@'"
+	if ! $@ >&2; then
+		echo "# assert $mt_current_test, '$@'" >&2
 		mt_test_status=1
 		mt_checks_failed=$(( mt_checks_failed + 1 ))
 	fi
