@@ -132,7 +132,7 @@ mt_run_named()
 
 mt_fail()
 {
-	error_msg="$1"
+	err_msg="$1"
 	if [ $# -eq 2 ]; then
 		err_msg="$2"
 	fi
