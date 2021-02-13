@@ -6,6 +6,9 @@ DISTDIR ?= mtest-$(VERSION)
 MKDIR ?= mkdir
 RM ?= rm -f
 
+all:
+	@echo "all done"
+
 install:
 	install -m 0644 -D -t $(DESTDIR)$(INCDIR) mtest.h
 	install -m 0644 -D -t $(DESTDIR)$(PREFIX)/man7 man/mtest_overview.7
