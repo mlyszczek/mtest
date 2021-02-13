@@ -74,6 +74,26 @@
 
 
 /* ==========================================================================
+    Some common code to init and finish tests. Internal use only.
+   ========================================================================== */
+
+
+#define _mt_test_init(n) \
+	curr_test = n; \
+	mt_test_status = 0; \
+	++mt_total_tests; \
+	if (mt_prepare_test) mt_prepare_test();
+
+#define _mt_test_finish() \
+	if (mt_cleanup_test) mt_cleanup_test(); \
+	if (mt_test_status != 0) { \
+		fprintf(stdout, "not ok %d - %s\n", mt_total_tests, curr_test); \
+		++mt_total_failed; \
+	} else \
+		fprintf(stdout, "ok %d - %s\n", mt_total_tests, curr_test);
+
+
+/* ==========================================================================
     macro runs test 'f'. 'f' is just a function (without parenthesis ()).
    ========================================================================== */
 
@@ -98,17 +118,9 @@
 
 
 #define mt_run_named(f, n) do { \
-	curr_test = n; \
-	mt_test_status = 0; \
-	++mt_total_tests; \
-	if (mt_prepare_test) mt_prepare_test(); \
+	_mt_test_init(n); \
 	f(); \
-	if (mt_cleanup_test) mt_cleanup_test(); \
-	if (mt_test_status != 0) { \
-		fprintf(stdout, "not ok %d - %s\n", mt_total_tests, curr_test); \
-		++mt_total_failed; \
-	} else \
-		fprintf(stdout, "ok %d - %s\n", mt_total_tests, curr_test); \
+	_mt_test_finish(); \
 } while(0)
 
 
@@ -121,17 +133,9 @@
 
 
 #define mt_run_param_named(f, p, n) do { \
-	curr_test = n; \
-	mt_test_status = 0; \
-	++mt_total_tests; \
-	if (mt_prepare_test) mt_prepare_test(); \
+	_mt_test_init(n); \
 	f(p); \
-	if (mt_cleanup_test) mt_cleanup_test(); \
-	if (mt_test_status != 0) { \
-		fprintf(stdout, "not ok %d - %s\n", mt_total_tests, curr_test); \
-		++mt_total_failed; \
-	} else \
-		fprintf(stdout, "ok %d - %s\n", mt_total_tests, curr_test); \
+	_mt_test_finish(); \
 } while(0)
 
 
