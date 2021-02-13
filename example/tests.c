@@ -4,6 +4,7 @@
 #include "sub-tests.h"
 #include "named-tests.h"
 #include "param-tests.h"
+#include "quick-tests.h"
 
 #include "calc.h"
 
@@ -53,6 +54,12 @@ int main(void)
 
     param_test_in_loop();
     named_param_test_in_loop();
+
+    /*
+     * run multiple, one check, quick tests
+     */
+
+    quick_tests();
 
     /*
      * and at the end we call mt_return, which will print clousure information

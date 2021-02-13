@@ -140,6 +140,35 @@
 
 
 /* ==========================================================================
+    Same as mt_run_quick_named() but uses expression 'e' as test name
+   ========================================================================== */
+
+
+#define mt_run_quick(e) mt_run_quick_named(e, #e)
+
+
+/* ==========================================================================
+    macro checks expression e with mt_fail() function and allows to provide
+    custom test name 'n'
+
+    This is basically as doing:
+
+    void foo(void) { mt_fail(e); }
+    void main(void) { mt_run(foo); }
+
+    So with it you can skip the foo middleman, and just call expression
+    directly.
+   ========================================================================== */
+
+
+#define mt_run_quick_named(e, n) do { \
+	_mt_test_init(n); \
+	mt_fail(e); \
+	_mt_test_finish(); \
+} while(0)
+
+
+/* ==========================================================================
     simple assert, when expression 'e' is evaluated to false, assert message
     will be logged, and macro will force function to return
    ========================================================================== */
