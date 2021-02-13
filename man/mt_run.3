@@ -20,6 +20,10 @@ c/c++
 .BI "mt_run_named(" function_name ", " test_name ")"
 .br
 .BI "mt_run_param_named(" function_name_param ", " parameter ", " test_name ")"
+.br
+.BI "mt_run_quick(" expression ")"
+.br
+.BI "mt_run_quick_named(" expression ", " test_name ")"
 .PP
 .BI "static void (*" mt_prepare_test ")(void)"
 .br
@@ -79,6 +83,51 @@ is run via
 program, when you want to pass parameter with spaces, you need to use
 double quotes like
 .BR """'parameter\ with\ spaces'""" .
+.PP
+.BR mt_run_quick (3)
+allows to perform quick test with only single
+.I expression
+check.
+It initializes tests with
+.IR mt_prepare_test and mt_cleanup_test
+but does only single
+.BR mt_fail (3)
+on
+.IR expresssion .
+This is effectively same as doing
+.PP
+.EX
+    void foo(void) { mt_fail(e); }
+    void test_group(void) { mt_run(foo); }
+.EE
+.PP
+Now, of course you could simply do multiple
+.BR mt_fail (3)
+calls but with that you loose some context, especially with
+.BR mt_run_quick_named (3)
+variant of the function.
+.PP
+.BR mt_run_quick_named (3)
+works in the same way as
+.BR mt_run_quick (3)
+but also allows to specify custom test name for better test analysis.
+Like said before, it is better to use this instead of multiple
+.BR mt_fail (3)
+checks to get some more context.
+.PP
+.EX
+    /* It is easier to see what broke if you use it like */
+    void test_group(void) {
+        mt_run(foo_init(arg1) == 0,  "foo_init should succeed");
+        mt_run(foo_init(NULL) == -1, "foo_init should fail when arg1 = NULL");
+    }
+
+    /* instead of doing */
+    void foo_init_tests(void) {
+        mt_fail(foo_init(arg1) == 0);
+        mt_fail(foo_init(NULL) == -1);
+    }
+.EE
 .PP
 Optionally user can also set two function pointers
 .I mt_prepare_test
