@@ -1,7 +1,7 @@
 PREFIX ?= "/usr/local"
 MANDIR = $(PREFIX)/share/man
 INCDIR = $(PREFIX)/include
-VERSION=1.4.1
+VERSION=1.4.2
 DISTDIR ?= mtest-$(VERSION)
 MKDIR ?= mkdir
 RM ?= rm -f

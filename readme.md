@@ -12,7 +12,7 @@ anything (like automake or jenkins) for even nicer output.
 Dependencies
 ============
 
-Valid C89 compiler with **fprintf** function implemented.
+Valid C11 (stdatomics) compiler with **fprintf** function implemented.
 Posix shell for testing from shell.
 
 Instalation
@@ -37,7 +37,7 @@ Why
 ===
 
 Because KISS. There are many good frameworks out there for testing, but I missed
-something really small yet powerfull. This framework does its job well, it is
+something really small yet powerful. This framework does its job well, it is
 very easy to integrate with tools like Jenkins for test result presentation and
 it's a proof that unit testing can be very easy to implement.
 

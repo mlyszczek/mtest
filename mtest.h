@@ -3,7 +3,7 @@
     Author: Michał Łyszczek <michal.lyszczek@bofc.pl>
    ==========================================================================
            __________________________________________________________
-          /                      mtest v1.4.1                        \
+          /                      mtest v1.4.2                        \
           |                  https://mtest.bofc.pl                   |
           |                                                          |
           |    Simple test framework that uses TAP output format     |
